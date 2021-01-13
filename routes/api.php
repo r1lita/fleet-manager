@@ -19,4 +19,4 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::resource('vehicules', VehiculeController::class);
+Route::apiResource('vehicules', VehiculeController::class);
