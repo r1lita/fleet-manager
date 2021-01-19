@@ -2153,11 +2153,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'VehiculesList',
   data: function data() {
     return {};
+  },
+  methods: {
+    editVehicule: function editVehicule(id) {
+      this.$router.push('/vehicules/' + id + '/edit');
+    }
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapState)(['vehicules']))
 });
@@ -20414,7 +20425,26 @@ var render = function() {
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-lg-12" }, [
               _c("div", { staticClass: "card" }, [
-                _vm._m(1),
+                _c(
+                  "div",
+                  { staticClass: "card-header" },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "btn btn-flat btn-primary",
+                        attrs: { to: "/vehicules/create" }
+                      },
+                      [
+                        _c("i", { staticClass: "fas fa-add" }),
+                        _vm._v(
+                          "\n                                Ajouter un véhicule\n                            "
+                        )
+                      ]
+                    )
+                  ],
+                  1
+                ),
                 _vm._v(" "),
                 _c("div", { staticClass: "card-body" }, [
                   _c(
@@ -20424,7 +20454,7 @@ var render = function() {
                       attrs: { id: "example1", role: "grid" }
                     },
                     [
-                      _vm._m(2),
+                      _vm._m(1),
                       _vm._v(" "),
                       _c(
                         "tbody",
@@ -20432,7 +20462,20 @@ var render = function() {
                           return _c("tr", { key: vehicule.id }, [
                             _c("td", [_vm._v(_vm._s(vehicule.vehicule_maker))]),
                             _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(vehicule.vehicule_model))]),
+                            _c("td", [
+                              _c(
+                                "a",
+                                {
+                                  attrs: { href: "#" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.editVehicule(vehicule.id)
+                                    }
+                                  }
+                                },
+                                [_vm._v(_vm._s(vehicule.vehicule_model))]
+                              )
+                            ]),
                             _vm._v(" "),
                             _c("td", [_vm._v(_vm._s(vehicule.color))]),
                             _vm._v(" "),
@@ -20482,16 +20525,6 @@ var staticRenderFns = [
             ])
           ])
         ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("h3", { staticClass: "card-title" }, [
-        _vm._v("DataTable with default features")
       ])
     ])
   },

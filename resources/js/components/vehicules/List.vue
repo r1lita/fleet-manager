@@ -23,7 +23,13 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">DataTable with default features</h3>
+                                <router-link 
+                                    to="/vehicules/create"
+                                    class="btn btn-flat btn-primary"
+                                    >
+                                    <i class="fas fa-add"></i>
+                                    Ajouter un véhicule
+                                </router-link>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -39,7 +45,7 @@
                                     <tbody>
                                         <tr v-for="vehicule in vehicules" :key="vehicule.id">
                                             <td>{{ vehicule.vehicule_maker }}</td>
-                                            <td>{{ vehicule.vehicule_model }}</td>
+                                            <td><a @click="editVehicule(vehicule.id)" href="#">{{ vehicule.vehicule_model }}</a></td>
                                             <td>{{ vehicule.color }}</td>
                                             <td>
                                                 <span v-if="vehicule.in_service == 1">Oui</span>
@@ -65,6 +71,11 @@
         name: 'VehiculesList',
         data () {
             return {}
+        },
+        methods: {
+            editVehicule(id) {
+                this.$router.push('/vehicules/' + id + '/edit');
+            }
         },
         computed: {
             ...mapState(['vehicules']),
