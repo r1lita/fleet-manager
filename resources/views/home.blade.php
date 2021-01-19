@@ -37,15 +37,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 <body class="hold-transition sidebar-mini">
-<div id="app" class="wrapper">
-    <site-header></site-header>
-    <left-sidebar></left-sidebar>
+  <div id="app">
     
-
-    <!-- Content Wrapper. Contains page content -->
-    <home-page></home-page>
-    <!-- /.content-wrapper -->
-
   </div> <!-- #app -->
 
   <!-- Control Sidebar -->
@@ -77,6 +70,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- Bootstrap 4 -->
 <script src="{{ url('/') }}/admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- date picker -->
+<!-- DataTables -->
+<script src="{{ url('/') }}/admin-lte/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="{{ url('/') }}/admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="{{ url('/') }}/admin-lte/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="{{ url('/') }}/admin-lte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <!-- AdminLTE App -->
 <script src="{{ url('/') }}/admin-lte/dist/js/adminlte.min.js"></script>
@@ -120,6 +119,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
       window.location.href = baseUrl;
       e.preventDefault(); // prevents default
       return false; // al
+    });
+
+    // Data table
+    $(function () {
+        // $("#example1").DataTable({
+        // "responsive": true,
+        // "autoWidth": false,
+        // });
+        $('#example1').DataTable({
+        "paging": true,
+        "lengthChange": true,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+        });
     });
   });
 </script>

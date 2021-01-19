@@ -27,10 +27,17 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/calls/list" class="nav-link">
+                <!-- <a href="/calls/list" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tous les véhicules</p>
-                </a>
+                </a> -->
+                <router-link 
+                  to="/vehicules"
+                  class="nav-link"
+                >
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tous les véhicules</p>
+                </router-link>
               </li>
               <li class="nav-item">
                 <a href="/callers" class="nav-link">
@@ -75,6 +82,6 @@
 
 <script>
 export default {
-    
+    name: 'LeftSideBar'
 }
 </script>

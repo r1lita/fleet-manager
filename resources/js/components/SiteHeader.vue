@@ -40,6 +40,6 @@
 
 <script>
 export default {
-    
+    name: 'SiteHeader'
 }
 </script>
