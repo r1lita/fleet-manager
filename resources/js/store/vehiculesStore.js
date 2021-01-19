@@ -18,7 +18,23 @@ const vehiculesStore = new Vuex.Store({
     actions: {
         loadAllVehicules({ commit }) {
             return axios.get('api/vehicules')
-                .then(response => commit('updateAllVehicules', response.data))
+                .then(response => {
+                    commit('updateAllVehicules', response.data)
+                    jQuery(function ($) {
+                        // $("#example1").DataTable({
+                        // "responsive": true,
+                        // "autoWidth": false,
+                        // });
+                        $('#example1').DataTable({
+                          "paging": true,
+                          "lengthChange": true,
+                          "searching": true,
+                          "ordering": true,
+                          "info": true,
+                          "autoWidth": false,
+                        });
+                    });
+                })
                 console.log(response)
                 console.log('loadAllVehicules from actions')
         }

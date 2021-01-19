@@ -122,21 +122,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
     });
 
     // Data table
-    $(function () {
-        // $("#example1").DataTable({
-        // "responsive": true,
-        // "autoWidth": false,
-        // });
-        $('#example1').DataTable({
-        "paging": true,
-        "lengthChange": true,
-        "searching": true,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-        "responsive": true,
-        });
-    });
+    // $(function () {
+    //     // $("#example1").DataTable({
+    //     // "responsive": true,
+    //     // "autoWidth": false,
+    //     // });
+    //     $('#example1').DataTable({
+    //       "paging": true,
+    //       "lengthChange": false,
+    //       "searching": false,
+    //       "ordering": true,
+    //       "info": true,
+    //       "autoWidth": false,
+    //     });
+    // });
   });
 </script>
 </body>

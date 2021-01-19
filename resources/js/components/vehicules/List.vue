@@ -27,7 +27,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped">
+                                <table id="example1" role="grid" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
                                         <th>Constructeur</th>
@@ -42,7 +42,7 @@
                                             <td>{{ vehicule.vehicule_model }}</td>
                                             <td>{{ vehicule.color }}</td>
                                             <td>
-                                                <span v-if="vehicule.color == 1">Oui</span>
+                                                <span v-if="vehicule.in_service == 1">Oui</span>
                                                 <span v-else>Non</span>
                                             </td>
                                         </tr>                                        

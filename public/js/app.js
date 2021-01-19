@@ -2301,7 +2301,21 @@ var vehiculesStore = new (vuex__WEBPACK_IMPORTED_MODULE_2___default().Store)({
     loadAllVehicules: function loadAllVehicules(_ref) {
       var commit = _ref.commit;
       return axios__WEBPACK_IMPORTED_MODULE_0___default().get('api/vehicules').then(function (response) {
-        return commit('updateAllVehicules', response.data);
+        commit('updateAllVehicules', response.data);
+        jQuery(function ($) {
+          // $("#example1").DataTable({
+          // "responsive": true,
+          // "autoWidth": false,
+          // });
+          $('#example1').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false
+          });
+        });
       });
       console.log(response);
       console.log('loadAllVehicules from actions');
@@ -20407,7 +20421,7 @@ var render = function() {
                     "table",
                     {
                       staticClass: "table table-bordered table-striped",
-                      attrs: { id: "example1" }
+                      attrs: { id: "example1", role: "grid" }
                     },
                     [
                       _vm._m(2),
@@ -20423,7 +20437,7 @@ var render = function() {
                             _c("td", [_vm._v(_vm._s(vehicule.color))]),
                             _vm._v(" "),
                             _c("td", [
-                              vehicule.color == 1
+                              vehicule.in_service == 1
                                 ? _c("span", [_vm._v("Oui")])
                                 : _c("span", [_vm._v("Non")])
                             ])
