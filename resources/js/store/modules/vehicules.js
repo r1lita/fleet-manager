@@ -1,11 +1,13 @@
 import axios from 'axios'
 
 const state = {
-    vehicules: []
+    vehicules: [],
+    vehicule: {}
 };
 
 const getters = {
-    allVehicules: state => state.vehicules
+    allVehicules: state => state.vehicules,
+    getSingleVehicule: state => state.vehicule
 };
 
 const actions = {
@@ -18,18 +20,32 @@ const actions = {
                   "paging": true,
                   "lengthChange": true,
                   "searching": true,
-                  "ordering": true,
+                  "ordering": false,
                   "info": true,
                   "autoWidth": false,
                 });
             });
         });
         //console.log(response.data);
-    }
+    },
+    async getAVehicule({ commit }, vehiculeId) {
+        return axios.get('api/vehicules/' + vehiculeId)
+        .then(response => {
+            commit('setSingleVehicule', response.data);
+        });
+    },
+    async addVehicule({ commit }, vehicule) {
+        return axios.post('api/vehicules', vehicule)
+        .then(response => {
+            commit('newVehicule', response.data);
+        });
+    },
 };
 
 const mutations = {
-    setVehicules: (state, vehicules) => (state.vehicules = vehicules) 
+    setVehicules: (state, vehicules) => (state.vehicules = vehicules),
+    setSingleVehicule: (state, vehicule) => (state.vehicule = vehicule),
+    newVehicule: (state, vehicule) => state.vehicules.unshift(vehicule),
 };
 
 export default {

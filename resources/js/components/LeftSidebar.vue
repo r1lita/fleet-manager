@@ -40,6 +40,19 @@
                 </router-link>
               </li>
               <li class="nav-item">
+                <!-- <a href="/calls/list" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tous les véhicules</p>
+                </a> -->
+                <router-link 
+                  to="/vehicules/add"
+                  class="nav-link"
+                >
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ajouter un véhicule</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
                 <a href="/callers" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Constructeurs</p>

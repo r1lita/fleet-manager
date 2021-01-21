@@ -24,7 +24,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <router-link 
-                                    to="/vehicules/create"
+                                    to="/vehicules/add"
                                     class="btn btn-flat btn-primary"
                                     >
                                     <i class="fas fa-add"></i>
@@ -45,7 +45,9 @@
                                     <tbody>
                                         <tr v-for="vehicule in allVehicules" :key="vehicule.id">
                                             <td>{{ vehicule.vehicule_maker }}</td>
-                                            <td><a @click="editVehicule(vehicule.id)" href="#">{{ vehicule.vehicule_model }}</a></td>
+                                            <td>
+                                                <router-link :to="{ name: 'editVehicule', params: { id: vehicule.id }}">{{ vehicule.vehicule_model }}</router-link>
+                                            </td>
                                             <td>{{ vehicule.color }}</td>
                                             <td>
                                                 <span v-if="vehicule.in_service == 1">Oui</span>
@@ -76,9 +78,9 @@
         // },
         methods: {
             ...mapActions(['fetchVehicules']),
-            editVehicule(id) {
-                this.$router.push('/vehicules/' + id + '/edit');
-            }
+            // editVehicule(id) {
+            //     this.$router.push('/vehicules/edit/' + id);
+            // }
         },
         computed: mapGetters(["allVehicules"]),
         created() {
