@@ -1,11 +1,12 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import axios from 'axios';
 
-import vehiculesStore from './vehiculesStore'
+import vehicules from './modules/vehicules'
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
-    vehiculesStore
-})
+    modules: {
+        vehicules
+    }
+});

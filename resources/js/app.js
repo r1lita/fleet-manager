@@ -6,7 +6,7 @@ import VueRouter from 'vue-router'
 import routes from './routes'
 import App from './components/App'
 
-import store from './store/vehiculesStore';
+import store from './store';
 
 Vue.use(VueRouter);
 
@@ -23,8 +23,5 @@ const app = new Vue({
     el: '#app',
     render: h => h(App),
     router,
-    store,
-    created() {
-        this.$store.dispatch('loadAllVehicules')
-    },
+    store
 });

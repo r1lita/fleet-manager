@@ -24,7 +24,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <router-link 
-                                    to="/vehicules/create"
+                                    to="/vehicules/add"
                                     class="btn btn-flat btn-primary"
                                     >
                                     <i class="fas fa-add"></i>
@@ -43,9 +43,11 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="vehicule in vehicules" :key="vehicule.id">
+                                        <tr v-for="vehicule in allVehicules" :key="vehicule.id">
                                             <td>{{ vehicule.vehicule_maker }}</td>
-                                            <td><a @click="editVehicule(vehicule.id)" href="#">{{ vehicule.vehicule_model }}</a></td>
+                                            <td>
+                                                <router-link :to="{ name: 'editVehicule', params: { id: vehicule.id }}">{{ vehicule.vehicule_model }}</router-link>
+                                            </td>
                                             <td>{{ vehicule.color }}</td>
                                             <td>
                                                 <span v-if="vehicule.in_service == 1">Oui</span>
@@ -65,20 +67,24 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex'
+    import { mapGetters, mapActions } from 'vuex'
 
     export default {
         name: 'VehiculesList',
-        data () {
-            return {}
-        },
+        // data() {
+        //     return {
+        //         vehicules: []
+        //     }
+        // },
         methods: {
-            editVehicule(id) {
-                this.$router.push('/vehicules/' + id + '/edit');
-            }
+            ...mapActions(['fetchVehicules']),
+            // editVehicule(id) {
+            //     this.$router.push('/vehicules/edit/' + id);
+            // }
         },
-        computed: {
-            ...mapState(['vehicules']),
-        },
+        computed: mapGetters(["allVehicules"]),
+        created() {
+            this.fetchVehicules();
+        }
     }
 </script>
