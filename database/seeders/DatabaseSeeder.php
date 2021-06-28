@@ -13,7 +13,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-        $this->call(VehiculeSeeder::class);
+        $constructor = \App\Models\Constructor::factory(10)->create()->each(function ($constructor) {
+            $vehicules = \App\Models\Vehicule::factory(20)->create();
+            $constructor->vehicules()->saveMany($vehicules);
+        });
+        // $this->call(VehiculeSeeder::class);
     }
 }

@@ -5,18 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Vehicule extends Model
+class Constructor extends Model
 {
     use HasFactory;
 
+    
     /**
      * Allow mass assignment
      */
     protected $guarded = [];
 
-    public function constructor()
+    public function vehicules()
     {
-        return $this->belongsTo(Constructor::class);
+        return $this->hasMany(Vehicule::class);
     }
-
 }

@@ -4,9 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\Vehicule;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Collection; 
+
+use App\Repository\VehiculeRepositoryInterface;
 
 class VehiculeController extends Controller
 {
+    
+    protected $vehiculeRepository;
+
+    public function __construct(VehiculeRepositoryInterface $vehiculeRepository)
+    {   
+        $this->vehiculeRepository = $vehiculeRepository;
+    }
+    
+    
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +26,9 @@ class VehiculeController extends Controller
      */
     public function index()
     {
-        $vehicules = Vehicule::orderBy('id', 'DESC')->get();
+        
+        $vehicules = $this->vehiculeRepository->all();
+
         return $vehicules;
     }
 
