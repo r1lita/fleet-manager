@@ -24,7 +24,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <router-link 
-                                    to="/vehicules/add"
+                                    to="/vehicles/add"
                                     class="btn btn-flat btn-primary"
                                     >
                                     <i class="fas fa-add"></i>
@@ -43,14 +43,14 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="vehicule in allVehicules" :key="vehicule.id">
-                                            <td>{{ vehicule.vehicule_maker }}</td>
+                                        <tr v-for="vehicle in allVehicles" :key="vehicle.id">
+                                            <td>{{ vehicle.vehicle_maker }}</td>
                                             <td>
-                                                <router-link :to="{ name: 'editVehicule', params: { id: vehicule.id }}">{{ vehicule.vehicule_model }}</router-link>
+                                                <router-link :to="{ name: 'editVehicle', params: { id: vehicle.id }}">{{ vehicle.vehicle_model }}</router-link>
                                             </td>
-                                            <td>{{ vehicule.color }}</td>
+                                            <td>{{ vehicle.color }}</td>
                                             <td>
-                                                <span v-if="vehicule.in_service == 1">Oui</span>
+                                                <span v-if="vehicle.in_service == 1">Oui</span>
                                                 <span v-else>Non</span>
                                             </td>
                                         </tr>                                        
@@ -70,21 +70,21 @@
     import { mapGetters, mapActions } from 'vuex'
 
     export default {
-        name: 'VehiculesList',
+        name: 'VehiclesList',
         // data() {
         //     return {
-        //         vehicules: []
+        //         vehicles: []
         //     }
         // },
         methods: {
-            ...mapActions(['fetchVehicules']),
-            // editVehicule(id) {
-            //     this.$router.push('/vehicules/edit/' + id);
+            ...mapActions(['fetchVehicles']),
+            // editVehicle(id) {
+            //     this.$router.push('/vehicles/edit/' + id);
             // }
         },
-        computed: mapGetters(["allVehicules"]),
+        computed: mapGetters(["allVehicles"]),
         created() {
-            this.fetchVehicules();
+            this.fetchVehicles();
         }
     }
 </script>

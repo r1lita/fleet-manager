@@ -16,7 +16,7 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-           <!-- Vehicules  -->
+           <!-- Vehicles  -->
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
             <i class="nav-icon fas fa-car text-danger"></i>
@@ -32,7 +32,7 @@
                   <p>Tous les véhicules</p>
                 </a> -->
                 <router-link 
-                  to="/vehicules"
+                  to="/vehicles"
                   class="nav-link"
                 >
                   <i class="far fa-circle nav-icon"></i>
@@ -45,7 +45,7 @@
                   <p>Tous les véhicules</p>
                 </a> -->
                 <router-link 
-                  to="/vehicules/add"
+                  to="/vehicles/add"
                   class="nav-link"
                 >
                   <i class="far fa-circle nav-icon"></i>

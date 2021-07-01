@@ -1,13 +1,13 @@
 import Homepage from './components/Homepage.vue'
-import VehiculesList from './components/vehicules/List.vue'
-import VehiculeCreate from './components/vehicules/CreateVehicule.vue'
-import VehiculeEdit from './components/vehicules/EditVehicule.vue'
+import VehiclesList from './components/vehicles/List.vue'
+import VehicleCreate from './components/vehicles/CreateVehicle.vue'
+import VehicleEdit from './components/vehicles/EditVehicle.vue'
 
 const routes = [
     { path: '/', component: Homepage },
-    { path: '/vehicules', component: VehiculesList },
-    { path: '/vehicules/add', component: VehiculeCreate },
-    { path: '/vehicules/edit/:id', name:"editVehicule", component: VehiculeEdit }
+    { path: '/vehicles', component: VehiclesList },
+    { path: '/vehicles/add', component: VehicleCreate },
+    { path: '/vehicles/edit/:id', name:"editVehicle", component: VehicleEdit }
     // { path: '/favourite-list', component: FavouriteList },
     // { path: '*', redirect: '/' },
 ];

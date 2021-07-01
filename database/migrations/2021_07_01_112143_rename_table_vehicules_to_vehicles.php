@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterVehiclesInServiceColAddConstructorForeignKey extends Migration
+class RenameTableVehiclesToVehicles extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,15 @@ class AlterVehiclesInServiceColAddConstructorForeignKey extends Migration
      */
     public function up()
     {
-        Schema::table('vehicles', function (Blueprint $table) {
-            // $table->boolean('in_service')->default(true)->change();
-            // $table->bigInteger('constructor_id')->unsigned()->nullable();
-            // $table->foreign('constructor_id')->references('id')->on('constructors')->onDelete('cascade');
-        });
+        // Schema::table('vehicles', function (Blueprint $table) {
+        //     $table->dropForeign(['constructor_id']);
+        // });
+
+        // Schema::rename('vehicles', 'vehicles');
+
+        // Schema::table('vehicles', function (Blueprint $table) {
+        //     $table->foreign('constructor_id')->references('id')->on('constructor')->onDelete('cascade');
+        // });
     }
 
     /**

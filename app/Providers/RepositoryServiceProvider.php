@@ -5,9 +5,9 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 
 use App\Repository\EloquentRepositoryInterface;
-use App\Repository\VehiculeRepositoryInterface;
+use App\Repository\VehicleRepositoryInterface;
 use App\Repository\BaseRepository;
-use App\Repository\VehiculeRepository;
+use App\Repository\VehicleRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -28,7 +28,7 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->app->bind(EloquentRepositoryInterface::class, BaseRepository::class);
-        $this->app->bind(VehiculeRepositoryInterface::class, VehiculeRepository::class);
+        // $this->app->bind(EloquentRepositoryInterface::class, BaseRepository::class);
+        // $this->app->bind(VehicleRepositoryInterface::class, VehicleRepository::class);
     }
 }

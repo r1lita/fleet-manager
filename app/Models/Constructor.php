@@ -15,8 +15,8 @@ class Constructor extends Model
      */
     protected $guarded = [];
 
-    public function vehicules()
+    public function vehicles()
     {
-        return $this->hasMany(Vehicule::class);
+        return $this->hasMany(Vehicle::class);
     }
 }

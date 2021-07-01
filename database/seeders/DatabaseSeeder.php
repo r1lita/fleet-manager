@@ -14,9 +14,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $constructor = \App\Models\Constructor::factory(10)->create()->each(function ($constructor) {
-            $vehicules = \App\Models\Vehicule::factory(20)->create();
-            $constructor->vehicules()->saveMany($vehicules);
+            $vehicles = \App\Models\Vehicle::factory(20)->create();
+            $constructor->vehicles()->saveMany($vehicles);
         });
-        // $this->call(VehiculeSeeder::class);
+        // $this->call(VehicleSeeder::class);
     }
 }

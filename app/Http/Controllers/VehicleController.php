@@ -2,34 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Vehicule;
+use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Collection; 
 
-use App\Repository\VehiculeRepositoryInterface;
+use App\Repository\VehicleRepositoryInterface;
+use App\Services\VehicleService;
 
-class VehiculeController extends Controller
+class VehicleController extends Controller
 {
     
-    protected $vehiculeRepository;
-
-    public function __construct(VehiculeRepositoryInterface $vehiculeRepository)
-    {   
-        $this->vehiculeRepository = $vehiculeRepository;
-    }
+    protected $vehicleService;
     
+    public function __construct(VehicleService $vehicleService)
+    {
+        $this->vehicleService = $vehicleService;
+    }
     
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        
-        $vehicules = $this->vehiculeRepository->all();
-
-        return $vehicules;
+        $vehicles = $this->vehicleService->all(['*'], ['constructor']);
+        return new VehicleCollection($vehicles);
     }
 
     /**
@@ -40,7 +38,8 @@ class VehiculeController extends Controller
      */
     public function store(Request $request)
     {
-        return Vehicule::create($request->all());
+        $vehicle = Vehicle::create($request->all());
+        return new VehicleCollection($vehicle);
     }
 
     /**
@@ -51,7 +50,7 @@ class VehiculeController extends Controller
      */
     public function show($id)
     {
-        return Vehicule::find($id);
+        return $this->vehicleService->findById($id);
     }
 
     /**
@@ -63,10 +62,10 @@ class VehiculeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Vehicule::find($id)->update($request->all());
-        $vehicule = Vehicule::find($id);
-        $vehicule->update($request->all());
-        return $vehicule;
+        // Vehicle::find($id)->update($request->all());
+        $vehicle = Vehicle::find($id);
+        $vehicle->update($request->all());
+        return $vehicle;
     }
 
     /**
@@ -77,6 +76,6 @@ class VehiculeController extends Controller
      */
     public function destroy($id)
     {
-        return Vehicule::destroy($id);
+        return Vehicle::destroy($id);
     }
 }
