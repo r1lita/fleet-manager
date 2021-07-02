@@ -14,12 +14,27 @@ class VehicleService
      * @return LengthAwarePaginator
      */
     
-    public function all($fields = ['*'], $relations = [], string $orderBy = "id", $orderDirection = "ASC"): LengthAwarePaginator
+    public function all(string $orderBy = "id", $orderDirection = "ASC"): LengthAwarePaginator
     {
+        /** @var items per page */
         $perPage = 20;
+
+        echo request('constructor_id');
+
         $vehicles = Vehicle::orderBy($orderBy, $orderDirection)
-                        ->with($relations)
-                        ->paginate($perPage);
+                    ->when(request()->has('model'), function ($q, $value) {
+                        $q->where('vehicle_model', 'LIKE', '%' . request('model') . '%');
+                    })
+                    ->when(request()->has('vin'), function ($q, $value) {
+                        $q->where('vin', 'LIKE', request('vin'));
+                    })
+                    ->when(request()->has('constructor_id'), function ($q, $value) {
+                        $q->whereConstructorId(request('constructor_id'));
+                    })
+                    ->when(request()->has('color'), function ($q, $value) {
+                        $q->where('color', 'LIKE', request('color'));
+                    })
+                    ->paginate($perPage);
         return  $vehicles;                      
     }
 
@@ -32,10 +47,5 @@ class VehicleService
     public function findById(int $id): ?Vehicle
     {
         return Vehicle::findOrFail($id);
-    }
-
-    public function format()
-    {
-        return new VehicleResource();
     }
 }

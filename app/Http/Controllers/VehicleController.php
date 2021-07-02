@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Collection; 
-
-use App\Repository\VehicleRepositoryInterface;
+use Illuminate\Support\Facades\Validator;
 use App\Services\VehicleService;
+use App\Http\Resources\VehicleResource;
+use App\Models\Vehicle;
 
 class VehicleController extends Controller
 {
@@ -26,8 +26,21 @@ class VehicleController extends Controller
      */
     public function index(Request $request)
     {
-        $vehicles = $this->vehicleService->all(['*'], ['constructor']);
-        return new VehicleCollection($vehicles);
+        $validator = Validator::make($request->all(), [
+            'constructor_id' => 'sometimes|numeric',
+            'model' => 'sometimes|min:2|max:100',
+            'color' => 'sometimes|max:50',
+            'vin' => 'sometimes|max:100' // official VIN length is 17
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                $validator->errors()
+            ], 422);
+        }
+
+        $vehicles = $this->vehicleService->all();
+        return Response(VehicleResource::collection($vehicles), 200);
     }
 
     /**
@@ -50,7 +63,11 @@ class VehicleController extends Controller
      */
     public function show($id)
     {
-        return $this->vehicleService->findById($id);
+        $vehicle = $this->vehicleService->findById($id);
+        return Response()->json([
+            'data' => new VehicleResource($vehicle)
+        ], 200);    
+        
     }
 
     /**
