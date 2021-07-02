@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\VehiclePostRequest;
 use Illuminate\Database\Eloquent\Collection; 
 use Illuminate\Support\Facades\Validator;
 use App\Services\VehicleService;
@@ -26,6 +27,7 @@ class VehicleController extends Controller
      */
     public function index(Request $request)
     {
+        /** Validator for get search parameters */
         $validator = Validator::make($request->all(), [
             'constructor_id' => 'sometimes|numeric',
             'model' => 'sometimes|min:2|max:100',
@@ -35,7 +37,8 @@ class VehicleController extends Controller
 
         if ($validator->fails()) {
             return response()->json([
-                $validator->errors()
+                'message' => "The given data was invalid.",
+                'errors' => $validator->errors()
             ], 422);
         }
 
@@ -51,8 +54,8 @@ class VehicleController extends Controller
      */
     public function store(Request $request)
     {
-        $vehicle = Vehicle::create($request->all());
-        return new VehicleCollection($vehicle);
+        $vehicle = $this->vehicleService->create($request);
+        return new VehicleResource($vehicle);
     }
 
     /**
@@ -77,12 +80,13 @@ class VehicleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(VehiclePostRequest $request, $id)
     {
-        // Vehicle::find($id)->update($request->all());
-        $vehicle = Vehicle::find($id);
-        $vehicle->update($request->all());
-        return $vehicle;
+        $vehicle = $this->vehicleService->update($id, $request);
+        
+        return Response()->json([
+            'data' => $vehicle
+        ]);
     }
 
     /**

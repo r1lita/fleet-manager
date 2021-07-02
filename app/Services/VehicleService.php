@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Http\Request;
 use App\Http\Resources\VehicleCollection;
 use App\Http\Resources\VehicleResource;
 use App\Models\Vehicle;
@@ -46,5 +47,24 @@ class VehicleService
     public function findById(int $id): ?Vehicle
     {
         return Vehicle::findOrFail($id);
+    }
+
+    /**
+     * Create a vehicle
+     * 
+     * @param Request $request
+     * @return Vehicule|False
+     */
+    public function create(Request $request): ?Vehicle
+    {
+        return Vehicle::create($request->all());
+    }
+
+    public function update(int $id, Request $request): ?Vehicle
+    {
+        $vehicle = Vehicle::findOrFail($id);
+        if ($vehicle->update($request->all())) {
+            return $vehicle;
+        }
     }
 }
