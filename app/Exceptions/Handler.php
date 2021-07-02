@@ -40,6 +40,9 @@ class Handler extends ExceptionHandler
         });
     }
 
+    /**
+     * Return a proper json 404 response when something is not found during a api call
+     */
     public function render($request, Throwable $exception)
     {
         if ($exception instanceof ModelNotFoundException && $request->wantsJson()) {

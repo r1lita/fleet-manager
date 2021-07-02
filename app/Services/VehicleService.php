@@ -10,15 +10,14 @@ use App\Models\Vehicle;
 class VehicleService
 {
     /**
-     * Retrieve paginated vehicle models
+     * Retrieve paginated vehicle models. Search parameters maybe provided
+     * 
      * @return LengthAwarePaginator
      */
     
-    public function all(string $orderBy = "id", $orderDirection = "ASC"): LengthAwarePaginator
+    public function all(string $orderBy = "id", $orderDirection = "ASC", int $perPage = 20): LengthAwarePaginator
     {
-        /** @var items per page */
-        $perPage = 20;
-
+        
         echo request('constructor_id');
 
         $vehicles = Vehicle::orderBy($orderBy, $orderDirection)
@@ -39,7 +38,7 @@ class VehicleService
     }
 
     /**
-     * Find a vehicle model by its id
+     * Find a vehicle by its id
      * 
      * @param int $id
      * @return vehicle|False
