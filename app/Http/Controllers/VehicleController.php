@@ -97,6 +97,6 @@ class VehicleController extends Controller
      */
     public function destroy($id)
     {
-        return Vehicle::destroy($id);
+        return $this->vehicleService->destroy($id);
     }
 }
