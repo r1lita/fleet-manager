@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Vehicule;
+use App\Models\Vehicle;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class VehiculeFactory extends Factory
+class VehicleFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Vehicule::class;
+    protected $model = Vehicle::class;
 
     /**
      * Define the model's default state.
@@ -22,8 +22,8 @@ class VehiculeFactory extends Factory
     public function definition()
     {
         return [
-            'vehicule_maker' => $this->faker->words(2, true),
-            'vehicule_model' => $this->faker->words(2, true),
+            'vehicle_maker' => $this->faker->words(2, true),
+            'vehicle_model' => $this->faker->words(2, true),
             'color' => $this->faker->safeColorName(),
             'vin' => $this->faker->md5(),
             'in_service' => rand(0,1)

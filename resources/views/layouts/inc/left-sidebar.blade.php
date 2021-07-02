@@ -59,7 +59,7 @@
             <a href="#" class="nav-link">
             <i class="nav-icon fas fa-car text-danger"></i>
               <p>
-                Vehicules
+                Vehicles
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>

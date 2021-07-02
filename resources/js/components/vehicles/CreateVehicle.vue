@@ -4,13 +4,13 @@
             <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                <h1 class="m-0 text-dark">{{ getSingleVehicule.vehicule_maker }} {{ getSingleVehicule.vehicule_model }}</h1>
+                <h1 class="m-0 text-dark">Ajouter un nouveau véhicule</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#/">Accueil</a></li>
-                    <li class="breadcrumb-item"><router-link to="/vehicules">Tous les véhicules</router-link></li>
-                    <li class="breadcrumb-item active">Modifier</li>
+                    <li class="breadcrumb-item active"><router-link to="/vehicles">Tous les véhicules</router-link></li>
+                    <li class="breadcrumb-item active">Ajouter</li>
                 </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -34,27 +34,27 @@
                                         <form @submit="onSubmit">
                                             <div class="form-group">
                                                 <label for="car-maker">Constructeur</label>
-                                                <input :value="getSingleVehicule.vehicule_maker" name="vehicule_maker" type="text" class="form-control" id="car-maker" placeholder="Constructeur">
+                                                <input v-model="fields.vehicle_maker" name="vehicle_maker" type="text" class="form-control" id="car-maker" placeholder="Constructeur">
                                             </div>
                                             <div class="form-group">
                                                 <label for="car-model">Modèle</label>
-                                                <input :value="getSingleVehicule.vehicule_model" name="vehicule_model" type="text" class="form-control" id="car-model" placeholder="Modèle">
+                                                <input v-model="fields.vehicle_model" name="vehicle_model" type="text" class="form-control" id="car-model" placeholder="Modèle">
                                             </div>
                                             <div class="form-group">
                                                 <label for="car-color">Couleur</label>
-                                                <input type="text" :value="getSingleVehicule.color" name="color" class="form-control" id="car-color" placeholder="Couleur">
+                                                <input type="text" v-model="fields.color" name="color" class="form-control" id="car-color" placeholder="Couleur">
                                             </div>
                                             <div class="form-group">
                                                 <label for="car-vin">VIN</label>
-                                                <input type="text" :value="getSingleVehicule.vin" name="vin" class="form-control" id="car-vin" placeholder="VIN">
+                                                <input type="text" v-model="fields.vin" name="vin" class="form-control" id="car-vin" placeholder="VIN">
                                             </div>
                                             <div class="form-check">
-                                                <input type="checkbox" :value="getSingleVehicule.in_service" name="vin" class="form-check-input" id="car-in_service">
+                                                <input type="checkbox" :value="1" v-model="fields.in_service" name="vin" class="form-check-input" id="car-in_service">
                                                 <label for="car-in_service">En service</label>
                                             </div>
-                                            <button type="submit" class="btn btn-primary">Enregistrer</button> 
+                                            <button type="submit" class="btn btn-primary">Ajouter</button>
                                             <router-link 
-                                                to="/vehicules"
+                                                to="/vehicles"
                                                 class="btn btn-primary"
                                                 >
                                                 <i class="fas fa-add"></i>
@@ -76,27 +76,22 @@
 </template>
 
 <script>
-    import { mapActions, mapGetters } from 'vuex'
+    import { mapActions } from 'vuex'
     
     export default {
-        name: 'EditVehicule',
-        // data () {
-        //     return {
-        //         vehicule: {}
-        //     }
-        // },
-        methods: {
-            ...mapActions(['getAVehicule']),
-            onSubmit(e) {
-                e.preventDefault();
-                this.updateVehicule(this.vehicule);
-                this.$router.push('/vehicules/');
+        name: 'CreateVehicle',
+        data () {
+            return {
+                fields: {}
             }
         },
-        computed: mapGetters(["getSingleVehicule"]),
-        created() {
-            this.getAVehicule(this.$route.params.id);
-            //console.log('The id is: ' + this.$route.params.id);
-        }    
+        methods: {
+            ...mapActions(['addVehicle']),
+            onSubmit(e) {
+                e.preventDefault();
+                this.addVehicle(this.fields);
+                this.$router.push('/vehicles/');
+            }
+        },    
     }
 </script>
