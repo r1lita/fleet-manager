@@ -29,7 +29,7 @@ class VehicleControllerTest extends TestCase
     }
 
     /** We can add a vehicle */
-    public function testCanAddVehicule()
+    public function testVehicleCanBeAdded()
     {
         $this->withoutExceptionHandling();
 
@@ -112,6 +112,7 @@ class VehicleControllerTest extends TestCase
              );
     }
 
+    /** Vehicle can be updated */
     public function testVehiculeCanBeUpdated()
     {
         $this->withoutExceptionHandling();
@@ -160,5 +161,55 @@ class VehicleControllerTest extends TestCase
                     ]
                 ]    
              );
+
+    }
+
+    public function testVehicleCanBeDeleted()
+    {
+        $this->withoutExceptionHandling();
+
+        // Create a constructor
+        $constructorPayload = [
+            'name' => $this->faker->name,
+            'description' => $this->faker->text,
+            'logo' => $this->faker->word(1)
+        ];
+        $constructor = Constructor::create($constructorPayload);
+
+        // Create a vehicle
+        $vehiclePayload = [
+            'vehicle_model' => $this->faker->word(2),
+            'color' => $this->faker->safeColorName(),
+            'vin' =>  Str::random(17),
+            'in_service' => 1,
+            'constructor_id' => $constructor->id
+        ];
+        
+        $this->post('api/vehicles', $vehiclePayload)
+             ->assertStatus(201)
+             ->assertJsonStructure(
+                [
+                    'data' => 
+                    [
+                        'constructor_id',
+                        'vehicle_model',
+                        'color',
+                        'vin',
+                        'in_service',
+                        'updated_at'
+                    ]
+                ]
+             );
+
+        $this->assertDatabaseHas('vehicles', $vehiclePayload);
+
+        // Retrieve created vehicle
+        $vehicle = Vehicle::first();
+
+        // Delete vehicle
+        $this->json('DELETE', "api/vehicles/$vehicle->id")
+             ->assertStatus(204);
+
+        $this->assertCount(0, Vehicle::all());     
     }
 }
