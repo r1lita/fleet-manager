@@ -85,7 +85,7 @@ class VehicleController extends Controller
         $vehicle = $this->vehicleService->update($id, $request);
         
         return Response()->json([
-            'data' => $vehicle
+            'data' => new VehicleResource($vehicle)
         ]);
     }
 
