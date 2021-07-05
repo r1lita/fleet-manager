@@ -86,7 +86,7 @@ class VehicleController extends Controller
         
         return Response()->json([
             'data' => new VehicleResource($vehicle)
-        ]);
+        ], 200);
     }
 
     /**
