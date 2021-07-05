@@ -10,13 +10,15 @@ class VehicleService
 {
     /**
      * Retrieve paginated vehicle models. Search parameters maybe provided
-     * 
+     *
+     * @param string $orderBy
+     * @param string $orderDirection
+     * @param int $perPage 
      * @return LengthAwarePaginator
      */
     
-    public function all(string $orderBy = "id", $orderDirection = "ASC", int $perPage = 20): LengthAwarePaginator
-    {
-        
+    public function all(string $orderBy = "id", string $orderDirection = "ASC", int $perPage = 20): LengthAwarePaginator
+    {        
         $vehicles = Vehicle::orderBy($orderBy, $orderDirection)
                     ->when(request()->has('model'), function ($q, $value) {
                         $q->where('vehicle_model', 'LIKE', '%' . request('model') . '%');
@@ -58,8 +60,7 @@ class VehicleService
     }
 
     public function update(int $id, Request $request): ?Vehicle
-    {
-        
+    {        
         $vehicle = Vehicle::findOrFail($id);
         
         if ($vehicle->update($request->all())) {
@@ -75,7 +76,6 @@ class VehicleService
      */
     public function destroy(int $id): bool
     {
-        
         if (Vehicle::find($id)) {
             return Vehicle::destroy($id);
         } else {

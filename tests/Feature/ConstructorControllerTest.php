@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
 use Tests\TestCase;
 use App\Models\Constructor;
 
@@ -39,6 +40,7 @@ class ConstructorControllerTest extends TestCase
     /** A constructor can be added */
     public function testConstructorCanBeAdded()
     {
+        
         $this->withoutExceptionHandling();
 
         // Constructor data
@@ -63,5 +65,89 @@ class ConstructorControllerTest extends TestCase
              );
 
         $this->assertDatabaseHas('constructors', $constructorPayload);
+    }
+
+    /** A constructor can be shown */
+    public function testConstructorCanBeShown()
+    {
+        
+        $this->withoutExceptionHandling();
+
+        // create a constructor
+        $constructor = Constructor::factory(1)->create();
+
+        $this->assertEquals(1, count(Constructor::all()));
+        // dd($constructor->id);
+        $constructor = $constructor->first();
+        
+        $this->json('GET', "api/constructors/$constructor->id")
+             ->assertStatus(200)
+             ->assertJson(
+                [ 
+                    'data' =>[
+                        'id' => $constructor->id,
+                        'name' => $constructor->name,
+                        'description' => $constructor->description,
+                        'logo' => $constructor->logo,
+                        'updated_at' => Carbon::parse($constructor->updated_at)->format('Y-m-d H:i:s')
+                    ]
+                ]    
+             );
+    }
+
+    /** A constructor can be updated */
+    public function testConstructorCanBeUpdated()
+    {
+        $this->withoutExceptionHandling();
+
+        // Create a constructor
+        $constructorPayload = [
+            'name' => $this->faker->name,
+            'description' => $this->faker->text,
+            'logo' => $this->faker->word(1)
+        ];
+        $constructor = Constructor::create($constructorPayload);
+
+        // update payload
+        $updatePayload = [
+            'name' => 'Updated name',
+            'description' => 'Updated description',
+            'logo' => 'updated logo'
+        ];
+
+        $this->json('PUT', "api/constructors/$constructor->id", $updatePayload)
+             ->assertStatus(200)
+             ->assertJson(
+                [ 
+                    'data' =>[
+                        'id' => $constructor->id,
+                        'name' => 'Updated name',
+                        'description' => 'Updated description',
+                        'logo' => 'updated logo',
+                        'updated_at' => Carbon::parse($constructor->created_at)->format('Y-m-d H:i:s')
+                    ]
+                ]    
+             );
+
+    }
+
+    /** A constructor can be deleted */
+    public function testConstructorCanBeDeleted()
+    {
+        $this->withoutExceptionHandling();
+
+        // Create a constructor
+        $constructorPayload = [
+            'name' => $this->faker->name,
+            'description' => $this->faker->text,
+            'logo' => $this->faker->word(1)
+        ];
+        $constructor = Constructor::create($constructorPayload);
+
+        // Delete vehicle
+        $this->json('DELETE', "api/constructors/$constructor->id")
+             ->assertStatus(204);
+
+        $this->assertCount(0, Constructor::all());     
     }
 }

@@ -28,16 +28,6 @@ class ConstructorController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -57,18 +47,11 @@ class ConstructorController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $constructor = $this->constructorService->findById($id);
+        
+        return Response()->json([
+            'data' => new ConstructorResource($constructor)
+        ], 200);
     }
 
     /**
@@ -80,7 +63,11 @@ class ConstructorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $constructor = $this->constructorService->update($id, $request);
+        
+        return Response()->json([
+            'data' => new ConstructorResource($constructor)
+        ], 200);
     }
 
     /**
@@ -91,6 +78,12 @@ class ConstructorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if ($this->constructorService->destroy($id)) {
+            return Response()->json([''], 204);
+        } else {
+            return Response()->json([
+                'error' => 'Constructor not found'
+            ], 404);
+        }
     }
 }

@@ -11,12 +11,14 @@ class ConstructorService
     /**
      * Retrieve paginated constructor models. Search parameters maybe provided
      * 
+     * @param string $orderBy
+     * @param string $orderDirection
+     * @param int $perPage
      * @return LengthAwarePaginator
      */
     
-    public function all(string $orderBy = "id", $orderDirection = "ASC", int $perPage = 20): LengthAwarePaginator
-    {
-        
+    public function all(string $orderBy = "id", string $orderDirection = "ASC", int $perPage = 20): LengthAwarePaginator
+    {        
         $constructors = Constructor::orderBy($orderBy, $orderDirection)
                     ->when(request()->has('name'), function ($q, $value) {
                         $q->where('name', 'LIKE', '%' . request('model') . '%');
@@ -52,8 +54,7 @@ class ConstructorService
     }
 
     public function update(int $id, Request $request): ?Constructor
-    {
-        
+    {        
         $constructor = Constructor::findOrFail($id);
         
         if ($constructor->update($request->all())) {
@@ -68,13 +69,11 @@ class ConstructorService
      * @return boolean
      */
     public function destroy(int $id): bool
-    {
-        
+    {        
         if (Constructor::find($id)) {
             return Constructor::destroy($id);
         } else {
             return false;
-        }
-        
+        }        
     }
 }

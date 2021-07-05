@@ -67,6 +67,7 @@ class VehicleController extends Controller
     public function show($id)
     {
         $vehicle = $this->vehicleService->findById($id);
+        
         return Response()->json([
             'data' => new VehicleResource($vehicle)
         ], 200);    
@@ -96,8 +97,7 @@ class VehicleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        
+    {        
         if ($this->vehicleService->destroy($id)) {
             return Response()->json([''], 204);
         } else {
