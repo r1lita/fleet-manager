@@ -164,6 +164,7 @@ class VehicleControllerTest extends TestCase
 
     }
 
+    /** A vehicle can be deleted */
     public function testVehicleCanBeDeleted()
     {
         $this->withoutExceptionHandling();

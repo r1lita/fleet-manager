@@ -21,4 +21,4 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::apiResource('vehicles', VehicleController::class);
-Route::apiResource('constructor', ConstructorController::class);
+Route::apiResource('constructors', ConstructorController::class);

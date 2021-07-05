@@ -3,9 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Constructor;
+use App\Services\ConstructorService;
+use App\Http\Resources\ConstructorResource;
+use App\Http\Requests\ConstructorPostRequest;
 
 class ConstructorController extends Controller
 {
+    
+    public function __construct(ConstructorService $constructorService)
+    {   
+        $this->constructorService = $constructorService;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,17 +22,9 @@ class ConstructorController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $constructors = $this->constructorService->all();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return ConstructorResource::collection($constructors);
     }
 
     /**
@@ -32,9 +33,10 @@ class ConstructorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ConstructorPostRequest $request)
     {
-        //
+        $constructor = $this->constructorService->create($request);
+        return new ConstructorResource($constructor);
     }
 
     /**
@@ -45,18 +47,11 @@ class ConstructorController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $constructor = $this->constructorService->findById($id);
+        
+        return Response()->json([
+            'data' => new ConstructorResource($constructor)
+        ], 200);
     }
 
     /**
@@ -68,7 +63,11 @@ class ConstructorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $constructor = $this->constructorService->update($id, $request);
+        
+        return Response()->json([
+            'data' => new ConstructorResource($constructor)
+        ], 200);
     }
 
     /**
@@ -79,6 +78,12 @@ class ConstructorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if ($this->constructorService->destroy($id)) {
+            return Response()->json([''], 204);
+        } else {
+            return Response()->json([
+                'error' => 'Constructor not found'
+            ], 404);
+        }
     }
 }
