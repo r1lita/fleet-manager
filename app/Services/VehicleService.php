@@ -4,8 +4,6 @@ namespace App\Services;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
-use App\Http\Resources\VehicleCollection;
-use App\Http\Resources\VehicleResource;
 use App\Models\Vehicle;
 
 class VehicleService
@@ -19,8 +17,6 @@ class VehicleService
     public function all(string $orderBy = "id", $orderDirection = "ASC", int $perPage = 20): LengthAwarePaginator
     {
         
-        echo request('constructor_id');
-
         $vehicles = Vehicle::orderBy($orderBy, $orderDirection)
                     ->when(request()->has('model'), function ($q, $value) {
                         $q->where('vehicle_model', 'LIKE', '%' . request('model') . '%');
@@ -35,6 +31,7 @@ class VehicleService
                         $q->where('color', 'LIKE', request('color'));
                     })
                     ->paginate($perPage);
+        
         return  $vehicles;                      
     }
 
@@ -62,7 +59,9 @@ class VehicleService
 
     public function update(int $id, Request $request): ?Vehicle
     {
+        
         $vehicle = Vehicle::findOrFail($id);
+        
         if ($vehicle->update($request->all())) {
             return $vehicle;
         }
@@ -76,6 +75,7 @@ class VehicleService
      */
     public function destroy(int $id): bool
     {
+        
         if (Vehicle::find($id)) {
             return Vehicle::destroy($id);
         } else {

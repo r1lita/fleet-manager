@@ -3,9 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Constructor;
+use App\Services\ConstructorService;
+use App\Http\Resources\ConstructorResource;
+use App\Http\Requests\ConstructorPostRequest;
 
 class ConstructorController extends Controller
 {
+    
+    public function __construct(ConstructorService $constructorService)
+    {   
+        $this->constructorService = $constructorService;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +22,9 @@ class ConstructorController extends Controller
      */
     public function index()
     {
-        //
+        $constructors = $this->constructorService->all();
+
+        return ConstructorResource::collection($constructors);
     }
 
     /**
@@ -32,9 +43,10 @@ class ConstructorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ConstructorPostRequest $request)
     {
-        //
+        $constructor = $this->constructorService->create($request);
+        return new ConstructorResource($constructor);
     }
 
     /**
