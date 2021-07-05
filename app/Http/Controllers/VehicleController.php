@@ -85,8 +85,8 @@ class VehicleController extends Controller
         $vehicle = $this->vehicleService->update($id, $request);
         
         return Response()->json([
-            'data' => $vehicle
-        ]);
+            'data' => new VehicleResource($vehicle)
+        ], 200);
     }
 
     /**
@@ -97,6 +97,13 @@ class VehicleController extends Controller
      */
     public function destroy($id)
     {
-        return Vehicle::destroy($id);
+        
+        if ($this->vehicleService->destroy($id)) {
+            return Response()->json([''], 204);
+        } else {
+            return Response()->json([
+                'error' => 'Vehicle not found'
+            ], 404);
+        }
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Carbon;
 
 class VehicleResource extends JsonResource
 {
@@ -17,12 +18,12 @@ class VehicleResource extends JsonResource
         // return parent::toArray($request);
         return [
             'id' => $this->id,
-            'contructor_id' => $this->constructor_id,
+            'constructor_id' => $this->constructor_id,
             'vehicle_model' => $this->vehicle_model,
             'color' => $this->color,
             'vin' => $this->vin,
             'in_service' => $this->in_service,
-            'updated_at' => $this->updated_at
+            'updated_at' => Carbon::parse($this->created_at)->format('Y-m-d H:i:s')
         ];
     }
 }

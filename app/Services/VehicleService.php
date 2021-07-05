@@ -67,4 +67,20 @@ class VehicleService
             return $vehicle;
         }
     }
+
+    /**
+     * Delete a vehicle by its id
+     * 
+     * @param int $id
+     * @return boolean
+     */
+    public function destroy(int $id): bool
+    {
+        if (Vehicle::find($id)) {
+            return Vehicle::destroy($id);
+        } else {
+            return false;
+        }
+        
+    }
 }

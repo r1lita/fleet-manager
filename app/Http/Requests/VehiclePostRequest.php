@@ -25,7 +25,7 @@ class VehiclePostRequest extends FormRequest
     {
         return [
             'vehicle_model' => 'required|min:2|max:50',
-            'color' => 'max:50',
+            'color' => 'sometimes|max:50',
             'vin' => 'required|size:17',
             'in_service' => 'boolean',
             'constructor_id' => 'numeric'

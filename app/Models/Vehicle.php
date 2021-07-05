@@ -14,6 +14,17 @@ class Vehicle extends Model
      */
     protected $guarded = [];
 
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'id' => 'integer',
+        'in_service' => 'integer',
+        'constructor_id' => 'integer'
+    ];
+
     public function constructor()
     {
         return $this->belongsTo(Constructor::class);
