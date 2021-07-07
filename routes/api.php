@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\VehicleController;
-use App\Http\Controllers\ConstructorController;
+use App\Http\Controllers\Api\VehicleController;
+use App\Http\Controllers\Api\ConstructorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
