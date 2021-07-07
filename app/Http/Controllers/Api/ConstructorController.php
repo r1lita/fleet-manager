@@ -11,7 +11,6 @@ use App\Http\Requests\ConstructorPostRequest;
 
 class ConstructorController extends Controller
 {
-    
     public function __construct(ConstructorService $constructorService)
     {   
         $this->constructorService = $constructorService;
