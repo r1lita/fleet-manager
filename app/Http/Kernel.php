@@ -42,7 +42,8 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            'jsonify'
+            'jsonify',
+
         ],
     ];
 
@@ -66,6 +67,6 @@ class Kernel extends HttpKernel
         'jsonify' => \App\Http\Middleware\Jsonify::class,
         'jwt.verify' => \App\Http\Middleware\JwtMiddleware::class,
         'jwt.auth' => Tymon\JWTAuth\Middleware\GetUserFromToken::class,
-        'jwt.refresh' => Tymon\JWTAuth\Middleware\RefreshToken::class,
+        // 'jwt.refresh' => Tymon\JWTAuth\Middleware\RefreshToken::class,
     ];
 }

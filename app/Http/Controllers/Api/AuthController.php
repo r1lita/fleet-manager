@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Validator;
 use JWTAuth;
@@ -27,17 +28,14 @@ class AuthController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        if (!$jwt_token = JWTAuth::attempt($validator->validated())) {
+        if (!$jwtToken = JWTAuth::attempt($validator->validated())) {
             return response()->json([
                 'success' => false,
                 'message' => 'Invalid Email or Password',
             ], Response::HTTP_UNAUTHORIZED);
         }
 
-        return response()->json([
-            'success' => true,
-            'token' => $jwt_token,
-        ]);
+        return $this->createNewToken($jwtToken);
     }
 
     public function logout(Request $request)
@@ -72,8 +70,8 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => 60,
-            'user' => auth()->user()
+            'expires_in' => auth()->factory()->getTTL() * 60,
+            'user' => new UserResource(auth()->user())
         ]);
     }
 }
