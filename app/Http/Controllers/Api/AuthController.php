@@ -38,6 +38,13 @@ class AuthController extends Controller
         return $this->createNewToken($jwtToken);
     }
 
+
+    /**
+     * Logout
+     * 
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function logout(Request $request)
     {
         $this->validate($request, [
@@ -57,6 +64,15 @@ class AuthController extends Controller
                 'message' => 'Sorry, the user cannot be logged out'
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
+    }
+
+    /**
+     * Get the authenticated User.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function userProfile() {
+        return response()->json(auth()->user());
     }
 
     /**
