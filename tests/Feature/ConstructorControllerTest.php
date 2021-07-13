@@ -9,11 +9,12 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
 use Tests\TestCase;
 use App\Models\Constructor;
+use App\Traits\AttachJwtToken;
 
 class ConstructorControllerTest extends TestCase
 {
     
-    use RefreshDatabase;
+    use RefreshDatabase, AttachJwtToken;
     
     /** List of constructors  */
     public function testConstructorControllerIndex()

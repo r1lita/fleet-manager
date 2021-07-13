@@ -9,11 +9,12 @@ use Illuminate\Support\Carbon;
 use Tests\TestCase;
 use App\Models\Constructor;
 use App\Models\Vehicle;
+use App\Traits\AttachJwtToken;
 
 class VehicleControllerTest extends TestCase
 {
     
-    use RefreshDatabase;
+    use RefreshDatabase, AttachJwtToken;
     
     /**
      * A basic feature test example.
