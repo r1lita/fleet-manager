@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login', [AuthController::class, 'login']);
 
-// Route::group(['middleware' => ['jwt.verify']], function() {
+Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('logout', [AuthController::class, 'logout']);
     // Route::get('get_user', [ApiController::class, 'get_user']);
     // Route::get('products', [ProductController::class, 'index']);
@@ -34,4 +34,4 @@ Route::post('login', [AuthController::class, 'login']);
 
     Route::apiResource('vehicles', VehicleController::class);
     Route::apiResource('constructors', ConstructorController::class);
-// });
+});
